@@ -1,0 +1,12 @@
+django==1.7.8
+django-configurations==0.8
+django-secure==1.0.0
+django-cache-url==0.8.0
+dj-database-url==0.3.0
+django-model-utils==2.2
+Pillow==2.8.1
+django-allauth==0.19.1
+psycopg2==2.6
+djangorestframework==3.1.1
+django-oauth-toolkit==0.8.1
+whitenoise==1.0.6
