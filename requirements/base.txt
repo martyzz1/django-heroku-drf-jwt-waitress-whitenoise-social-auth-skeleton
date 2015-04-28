@@ -1,4 +1,4 @@
-django==1.7.8
+django==1.7.7
 django-configurations==0.8
 django-secure==1.0.0
 django-cache-url==0.8.0
