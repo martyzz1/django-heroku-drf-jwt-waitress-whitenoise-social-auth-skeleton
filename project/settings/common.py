@@ -48,9 +48,9 @@ class Common(Configuration):
 
     INSTALLED_APPS += (
         # Needs to come last for now because of a weird edge case between
-        #'allauth',  # registration
-        #'allauth.account',  # registration
-        #'allauth.socialaccount',  # registration
+        # 'allauth',  # registration
+        # 'allauth.account',  # registration
+        # 'allauth.socialaccount',  # registration
     )
     # END APP CONFIGURATION
 
@@ -103,9 +103,9 @@ class Common(Configuration):
 
     # DATABASE CONFIGURATION
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-    #https://django-configurations.readthedocs.org/en/0.5/values/#configurations.values.DatabaseURLValue
+    # https://django-configurations.readthedocs.org/en/0.5/values/#configurations.values.DatabaseURLValue
     DATABASES = values.DatabaseURLValue('postgres://localhost/api')
-    DATABASES['default']['ENGINE'] = 'django_postgrespool'
+    # DATABASES['default']['ENGINE'] = 'django_postgrespool'
     # END DATABASE CONFIGURATION
 
     # CACHING
@@ -143,8 +143,8 @@ class Common(Configuration):
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
     TEMPLATE_CONTEXT_PROCESSORS = (
         'django.contrib.auth.context_processors.auth',
-        #"allauth.account.context_processors.account",
-        #"allauth.socialaccount.context_processors.socialaccount",
+        # "allauth.account.context_processors.account",
+        # "allauth.socialaccount.context_processors.socialaccount",
         'django.core.context_processors.debug',
         'django.core.context_processors.i18n',
         'django.core.context_processors.media',
@@ -166,7 +166,7 @@ class Common(Configuration):
     )
 
     # See: http://django-crispy-forms.readthedocs.org/en/latest/install.html#template-packs
-    #CRISPY_TEMPLATE_PACK = 'bootstrap3'
+    # CRISPY_TEMPLATE_PACK = 'bootstrap3'
     # END TEMPLATE CONFIGURATION
 
     # STATIC FILE CONFIGURATION
@@ -192,10 +192,10 @@ class Common(Configuration):
 
     # MEDIA CONFIGURATION
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-    #MEDIA_ROOT = join(BASE_DIR, 'media')
+    # MEDIA_ROOT = join(BASE_DIR, 'media')
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
-    #MEDIA_URL = '/media/'
+    # MEDIA_URL = '/media/'
     # END MEDIA CONFIGURATION
 
     # URL Configuration
@@ -208,13 +208,13 @@ class Common(Configuration):
     # AUTHENTICATION CONFIGURATION
     AUTHENTICATION_BACKENDS = (
         "django.contrib.auth.backends.ModelBackend",
-        #"allauth.account.auth_backends.AuthenticationBackend",
+        # "allauth.account.auth_backends.AuthenticationBackend",
     )
 
     # Some really nice defaults
-    #ACCOUNT_AUTHENTICATION_METHOD = "email"
-    #ACCOUNT_EMAIL_REQUIRED = True
-    #ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    # ACCOUNT_AUTHENTICATION_METHOD = "email"
+    # ACCOUNT_EMAIL_REQUIRED = True
+    # ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     # END AUTHENTICATION CONFIGURATION
 
     # Custom user app defaults

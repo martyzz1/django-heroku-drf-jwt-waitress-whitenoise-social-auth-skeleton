@@ -7,7 +7,7 @@ Local Configurations
 - Use Django Debug Toolbar
 '''
 from configurations import values
-from .common import Common
+from project.settings.common import Common
 
 
 class Local(Common):
