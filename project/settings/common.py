@@ -33,7 +33,6 @@ class Common(Configuration):
         'django.contrib.admin',
     )
     THIRD_PARTY_APPS = (
-        'oauth2_provider',  # for oauth2 server
         'rest_framework',  # for build RESTFull API
     )
 
@@ -263,7 +262,6 @@ class Common(Configuration):
     # django-rest-framework CONFIGURATION
     REST_FRAMEWORK = {
         'DEFAULT_AUTHENTICATION_CLASSES': (
-            'oauth2_provider.ext.rest_framework.OAuth2Authentication',
             'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         ),
         'DEFAULT_PERMISSION_CLASSES': (
@@ -271,12 +269,5 @@ class Common(Configuration):
         )
     }
     # END django-rest-framework CONFIGURATION
-
-    # django-oauth-toolkit CONFIGURATION
-    OAUTH2_PROVIDER = {
-        # this is the list of available scopes
-        'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
-    }
-    # END django-oauth-toolkit CONFIGURATION
 
     # Your common stuff: Below this line define 3rd party libary settings
