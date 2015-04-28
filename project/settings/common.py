@@ -202,7 +202,7 @@ class Common(Configuration):
     ROOT_URLCONF = 'project.urls'
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
-    WSGI_APPLICATION = 'wsgi.application'
+    WSGI_APPLICATION = 'project.wsgi.application'
     # End URL Configuration
 
     # AUTHENTICATION CONFIGURATION
