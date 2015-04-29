@@ -29,17 +29,18 @@ class Common(Configuration):
         'django.contrib.sites',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'social.apps.django_app.default',
         # Admin
         'django.contrib.admin',
     )
     THIRD_PARTY_APPS = (
-        'rest_framework',  # for build RESTFull API
+        'rest_framework',
     )
 
     # Apps specific for this project go here.
     LOCAL_APPS = (
-        'users',  # custom users app
-        # Your stuff: custom apps go here
+        'users',
+        'testviews',
     )
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -47,9 +48,6 @@ class Common(Configuration):
 
     INSTALLED_APPS += (
         # Needs to come last for now because of a weird edge case between
-        # 'allauth',  # registration
-        # 'allauth.account',  # registration
-        # 'allauth.socialaccount',  # registration
     )
     # END APP CONFIGURATION
 
@@ -207,6 +205,7 @@ class Common(Configuration):
     # AUTHENTICATION CONFIGURATION
     AUTHENTICATION_BACKENDS = (
         "django.contrib.auth.backends.ModelBackend",
+        "social.backends.facebook.FacebookOAuth2",
         # "allauth.account.auth_backends.AuthenticationBackend",
     )
 
