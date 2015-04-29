@@ -14,7 +14,7 @@ It is my intention this project will also provide Multiple User types at some po
 * django-rest-framework
 * waitress webserver (not gunicorn)
 * whitenoise for static files
-* django-allauth for Social Authentication
+* python-social-auth for Social Authentication
 * django-rest-framework-jwt
 * django-configurations
 
