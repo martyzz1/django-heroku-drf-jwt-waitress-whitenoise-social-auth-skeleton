@@ -1,7 +1,7 @@
-from django.views.generic import TemplateView
+from views import TestSocialView
 from django.conf.urls import patterns
 
 
 urlpatterns = patterns('',
-    (r'^test/social_login/$', TemplateView.as_view(template_name='social_login.html')),
+    (r'^test/social_login/$', TestSocialView.as_view()),
 )

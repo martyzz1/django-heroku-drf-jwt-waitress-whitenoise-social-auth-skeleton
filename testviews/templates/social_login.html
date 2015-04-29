@@ -6,16 +6,24 @@
     $(document).ready(function () {
 
         FB.init({ 
-            appId: 'insert your appID value here', 
+            appId: '{{ fb_id }}', 
             cookie: true, 
             xfbml: true, 
             status: true });
 
         FB.getLoginStatus(function (response) {
             if (response.authResponse) {
-                $('#AccessToken').val(response.authResponse.accessToken);
+                var fb_token = response.authResponse.accessToken;
+                $('#FBAccessToken').val(response.authResponse.accessToken);
+                $.post("/api/v1/auth/social/facebook/", {access_token: fb_token}, function(returnedData) {
+                // This callback is executed if the post was successful
+                //self.resolutions.push(resolution);
+                $('#DoggyAccessToken').val(returnedData.email);
+            }); 
+
             } else {
                 // do something...maybe show a login prompt
+                $('#FBAccessToken').val('NOT LOGGED IN');
             }
         });
 
@@ -24,7 +32,8 @@
 </head>
 <body>
 <form action="">
-<input id="AccessToken" type="text" value="" />
+<input id="FBAccessToken" type="text" value="" />
+<input id="DoggyAccessToken" type="text" value="" />
 </form>
 <div id="fb-root"></div>
 </body>

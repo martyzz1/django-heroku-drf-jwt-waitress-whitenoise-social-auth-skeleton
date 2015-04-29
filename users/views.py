@@ -5,7 +5,7 @@ from rest_framework_jwt.utils import jwt_payload_handler, jwt_encode_handler
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import permissions, status
-from django.conf import settings
+from rest_framework_jwt.settings import api_settings as settings
 from calendar import timegm
 from datetime import datetime
 
@@ -70,7 +70,8 @@ class SocialTokentoJWT(APIView):
 
                 # Create the response object with the JWT payload.
                 response_data = {
-                    'token': jwt_encode_handler(payload)
+                    'token': jwt_encode_handler(payload),
+                    'email': user.email
                 }
 
                 return Response(response_data)
