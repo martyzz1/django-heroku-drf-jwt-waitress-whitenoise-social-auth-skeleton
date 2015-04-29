@@ -21,7 +21,7 @@ It is my intention this project will also provide Multiple User types at some po
 
 
 *Inspiration*
-http://httplambda.com/a-rest-api-with-django-and-oauthw-authentication/
-http://blog.wizer.fr/2013/11/angularjs-facebook-with-a-django-rest-api/
-http://bytefilia.com/titanium-mobile-facebook-application-django-allauth-sign-sign/
-
+* http://httplambda.com/a-rest-api-with-django-and-oauthw-authentication/
+* http://blog.wizer.fr/2013/11/angularjs-facebook-with-a-django-rest-api/
+* http://bytefilia.com/titanium-mobile-facebook-application-django-allauth-sign-sign/
+* https://github.com/luzfcb/cookiecutter-django-oauth
