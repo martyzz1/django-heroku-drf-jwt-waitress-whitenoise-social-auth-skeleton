@@ -8,6 +8,11 @@ from rest_framework import permissions, status
 from rest_framework_jwt.settings import api_settings as settings
 from calendar import timegm
 from datetime import datetime
+from django.contrib.auth.models import User
+from rest_framework import viewsets
+from rest_framework.permissions import AllowAny
+from .permissions import IsStaffOrTargetUser
+from .serializers import UserSerializer
 
 
 # When we send a third party access token to that view
@@ -80,3 +85,13 @@ class SocialTokentoJWT(APIView):
                 'status': 'Bad request',
                 'message': 'Authentication could not be performed with received data.'
             }, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserView(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    model = User
+
+    def get_permissions(self):
+        # allow non-authenticated user to create via POST
+        return (AllowAny() if self.request.method == 'POST'
+                else IsStaffOrTargetUser()),

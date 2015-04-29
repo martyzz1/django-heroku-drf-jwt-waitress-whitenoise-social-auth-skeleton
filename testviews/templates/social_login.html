@@ -5,6 +5,15 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        var api_token;
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (api_token) {
+                    xhr.setRequestHeader("Authorization", "Bearer " + api_token);
+                }
+            }
+        });
+
         FB.init({ 
             appId: '{{ fb_id }}', 
             cookie: true, 
@@ -18,7 +27,13 @@
                 $.post("/api/v1/auth/social/facebook/", {access_token: fb_token}, function(returnedData) {
                 // This callback is executed if the post was successful
                 //self.resolutions.push(resolution);
-                $('#DoggyAccessToken').val(returnedData.email);
+                api_token = returnedData.token
+                $('#APIAccessToken').val(returnedData.email);
+                $.get("/api/v1/accounts/", function(returnedData) {
+                    // This callback is executed if the post was successful
+                    //self.resolutions.push(resolution);
+                    $('#APIData').val(returnedData.email);
+                }); 
             }); 
 
             } else {
@@ -33,7 +48,8 @@
 <body>
 <form action="">
 <input id="FBAccessToken" type="text" value="" />
-<input id="DoggyAccessToken" type="text" value="" />
+<input id="APIAccessToken" type="text" value="" />
+<input id="APIData" type="text" value="" />
 </form>
 <div id="fb-root"></div>
 </body>
