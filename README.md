@@ -25,7 +25,7 @@ You will need to setup the following Envrionment variables
 export DJANGO_SETTINGS_MODULE=project.settings.local
 export DJANGO_CONFIGURATION=Local
 export DATABASE_URL=postgres://user:pass@yourhost/dbname
-export DJANGO_BROKER_URL=amqp://user:pass@yourhost:5672//
+export DJANGO_BROKER_URL=amqp://user:pass@yourhost:5672/vhost
 export DJANGO_SECRET_KEY=<set your own>
 export DJANGO_SOCIAL_AUTH_FACEBOOK_KEY=<your key>
 export DJANGO_SOCIAL_AUTH_FACEBOOK_SECRET=<your secret>
