@@ -28,8 +28,9 @@ export DJANGO_SOCIAL_AUTH_FACEBOOK_KEY=<your key>
 export DJANGO_SOCIAL_AUTH_FACEBOOK_SECRET=<your secret>
 </pre>
 
-You may use see a working proof that everything is working as it should y navigating to the following url
-http://localhost:8000/test/social_login/
+You may use see a working proof that everything is working as it should y navigating to the following url:-
+
+* http://localhost:8000/test/social_login/
 
 
 *Inspiration*
@@ -38,4 +39,3 @@ http://localhost:8000/test/social_login/
 * http://bytefilia.com/titanium-mobile-facebook-application-django-allauth-sign-sign/
 * https://github.com/luzfcb/cookiecutter-django-oauth
 * http://stackoverflow.com/questions/22198724/duplicate-email-using-both-python-social-auth-and-email-registration-in-django
-* 
