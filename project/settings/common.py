@@ -74,7 +74,7 @@ class Common(Configuration):
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
     # Note: This key only used for development and testing.
     #       In production, this is changed to a values.SecretValue() setting
-    SECRET_KEY = "CHANGEME!!!!"
+    SECRET_KEY = values.SecretValue()
     # END SECRET CONFIGURATION
 
     # FIXTURE CONFIGURATION
@@ -310,7 +310,7 @@ class Common(Configuration):
         'JWT_RESPONSE_PAYLOAD_HANDLER':
         'rest_framework_jwt.utils.jwt_response_payload_handler',
 
-        # 'JWT_SECRET_KEY': settings.SECRET_KEY,
+        'JWT_SECRET_KEY': SECRET_KEY,
         'JWT_ALGORITHM': 'HS256',
         'JWT_VERIFY': True,
         'JWT_VERIFY_EXPIRATION': True,
@@ -325,5 +325,9 @@ class Common(Configuration):
         'JWT_AUTH_HEADER_PREFIX': 'JWT',
     }
     # END django-rest-framework-jwt CONFIGURATION
+
+    # BEGIN Celery Configuration
+    BROKER_URL = values.SecretValue()
+    # END Celery Configuration
 
     # Your common stuff: Below this line define 3rd party libary settings
