@@ -206,15 +206,36 @@ class Common(Configuration):
         "social.backends.facebook.FacebookOAuth2",
     )
 
-    # FACEBOOK
+    # BEGIN python-social-auth CONFIG
+
     SOCIAL_AUTH_FACEBOOK_KEY = values.SecretValue()
     SOCIAL_AUTH_FACEBOOK_SECRET = values.SecretValue()
     SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+    # N.B. See Comments in the answer about email validation
+    # http://stackoverflow.com/questions/22198724/duplicate-email-using-both-python-social-auth-and-email-registration-in-django
+
+    SOCIAL_AUTH_PIPELINE = (
+        'social.pipeline.social_auth.social_details',
+        'social.pipeline.social_auth.social_uid',
+        'social.pipeline.social_auth.auth_allowed',
+        'social.pipeline.social_auth.social_user',
+        'social.pipeline.social_auth.associate_by_email',
+        'social.pipeline.user.get_username',
+        'social.pipeline.mail.mail_validation',
+        'social.pipeline.user.create_user',
+        'social.pipeline.social_auth.associate_user',
+        'social.pipeline.social_auth.load_extra_data',
+        'social.pipeline.user.user_details'
+    )
+
+    SOCIAL_AUTH_PROTECTED_USER_FIELDS = ['email', 'first_name', ]
+
+    # END python-social-auth CONFIG
 
     # Some really nice defaults
-    # ACCOUNT_AUTHENTICATION_METHOD = "email"
-    # ACCOUNT_EMAIL_REQUIRED = True
-    # ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    ACCOUNT_AUTHENTICATION_METHOD = "email"
+    ACCOUNT_EMAIL_REQUIRED = True
+    ACCOUNT_EMAIL_VERIFICATION = "mandatory"
     # END AUTHENTICATION CONFIGURATION
 
     # Custom user app defaults

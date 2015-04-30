@@ -90,6 +90,7 @@ class SocialTokentoJWT(APIView):
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     model = User
+    queryset = User.objects.all()
 
     def get_permissions(self):
         # allow non-authenticated user to create via POST

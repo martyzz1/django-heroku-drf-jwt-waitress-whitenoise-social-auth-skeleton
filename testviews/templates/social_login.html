@@ -9,7 +9,7 @@
         $.ajaxSetup({
             beforeSend: function(xhr, settings) {
                 if (api_token) {
-                    xhr.setRequestHeader("Authorization", "Bearer " + api_token);
+                    xhr.setRequestHeader("Authorization", "JWT " + api_token);
                 }
             }
         });
@@ -28,11 +28,11 @@
                 // This callback is executed if the post was successful
                 //self.resolutions.push(resolution);
                 api_token = returnedData.token
-                $('#APIAccessToken').val(returnedData.email);
+                $('#APIAccessToken').val(returnedData.token);
                 $.get("/api/v1/accounts/", function(returnedData) {
                     // This callback is executed if the post was successful
                     //self.resolutions.push(resolution);
-                    $('#APIData').val(returnedData.email);
+                    $('#APIData').val(returnedData[0].username);
                 }); 
             }); 
 
@@ -47,9 +47,18 @@
 </head>
 <body>
 <form action="">
-<input id="FBAccessToken" type="text" value="" />
-<input id="APIAccessToken" type="text" value="" />
-<input id="APIData" type="text" value="" />
+<table>
+<tr>
+    <td>Facebook AccessToken</td>
+    <td>Our JWT Access Token</td>
+    <td>Your username obtained under Auth</td>
+</tr>
+<tr>
+    <td><input id="FBAccessToken" type="text" value="" size="50"/></td>
+    <td><input id="APIAccessToken" type="text" value="" size="50"/></td>
+    <td><input id="APIData" type="text" value="" size="50"/></td>
+</tr>
+</table>
 </form>
 <div id="fb-root"></div>
 </body>
