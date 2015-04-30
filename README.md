@@ -30,7 +30,7 @@ export DJANGO_SOCIAL_AUTH_FACEBOOK_SECRET=<your secret>
 
 You may use see a working proof that everything is working as it should y navigating to the following url:-
 
-(http://localhost:8000/test/social_login/)
+[http://localhost:8000/test/social_login/]
 
 
 *Inspiration*
