@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from os.path import join, dirname
-
+from datetime import timedelta
 from configurations import Configuration, values
 
 BASE_DIR = dirname(dirname(__file__))
@@ -310,17 +310,17 @@ class Common(Configuration):
         'JWT_RESPONSE_PAYLOAD_HANDLER':
         'rest_framework_jwt.utils.jwt_response_payload_handler',
 
-        'JWT_SECRET_KEY': SECRET_KEY,
+        # 'JWT_SECRET_KEY': SECRET_KEY,
         'JWT_ALGORITHM': 'HS256',
         'JWT_VERIFY': True,
         'JWT_VERIFY_EXPIRATION': True,
         'JWT_LEEWAY': 0,
-        # 'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=300),
+        'JWT_EXPIRATION_DELTA': timedelta(seconds=300),
         'JWT_AUDIENCE': None,
         'JWT_ISSUER': None,
 
         'JWT_ALLOW_REFRESH': False,
-        # 'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+        'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
 
         'JWT_AUTH_HEADER_PREFIX': 'JWT',
     }
