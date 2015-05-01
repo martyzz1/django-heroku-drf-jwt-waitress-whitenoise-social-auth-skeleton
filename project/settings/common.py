@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from os.path import join, dirname
-
+from datetime import timedelta
 from configurations import Configuration, values
 
 BASE_DIR = dirname(dirname(__file__))
@@ -35,6 +35,7 @@ class Common(Configuration):
     )
     THIRD_PARTY_APPS = (
         'rest_framework',
+        'custom_user',
     )
 
     # Apps specific for this project go here.
@@ -206,6 +207,14 @@ class Common(Configuration):
         "social.backends.facebook.FacebookOAuth2",
     )
 
+    AUTH_USER_MODEL = 'users.User'
+
+    # Some really nice defaults
+    ACCOUNT_AUTHENTICATION_METHOD = "email"
+    ACCOUNT_EMAIL_REQUIRED = True
+    ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    # END AUTHENTICATION CONFIGURATION
+
     # BEGIN python-social-auth CONFIG
 
     SOCIAL_AUTH_FACEBOOK_KEY = values.SecretValue()
@@ -232,11 +241,6 @@ class Common(Configuration):
 
     # END python-social-auth CONFIG
 
-    # Some really nice defaults
-    ACCOUNT_AUTHENTICATION_METHOD = "email"
-    ACCOUNT_EMAIL_REQUIRED = True
-    ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-    # END AUTHENTICATION CONFIGURATION
 
     # Custom user app defaults
     # Select the correct user model
@@ -308,19 +312,19 @@ class Common(Configuration):
         'rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler',
 
         'JWT_RESPONSE_PAYLOAD_HANDLER':
-        'rest_framework_jwt.utils.jwt_response_payload_handler',
+        'users.utils.jwt_response_payload_handler',
 
-        'JWT_SECRET_KEY': SECRET_KEY,
+        # 'JWT_SECRET_KEY': SECRET_KEY,
         'JWT_ALGORITHM': 'HS256',
         'JWT_VERIFY': True,
         'JWT_VERIFY_EXPIRATION': True,
         'JWT_LEEWAY': 0,
-        # 'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=300),
+        'JWT_EXPIRATION_DELTA': timedelta(seconds=300),
         'JWT_AUDIENCE': None,
         'JWT_ISSUER': None,
 
         'JWT_ALLOW_REFRESH': False,
-        # 'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+        'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
 
         'JWT_AUTH_HEADER_PREFIX': 'JWT',
     }

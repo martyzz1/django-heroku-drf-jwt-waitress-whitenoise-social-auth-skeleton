@@ -17,6 +17,7 @@ venv
 *.env
 vagrant
 collected_static
+staticfiles
 compiled.*.js
 compiled.*.css
 .webassets-cache

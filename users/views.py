@@ -8,11 +8,13 @@ from rest_framework import permissions, status
 from rest_framework_jwt.settings import api_settings as settings
 from calendar import timegm
 from datetime import datetime
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from .permissions import IsStaffOrTargetUser
 from .serializers import UserSerializer
+
+jwt_response_payload_handler = settings.JWT_RESPONSE_PAYLOAD_HANDLER
 
 
 # When we send a third party access token to that view
@@ -74,10 +76,7 @@ class SocialTokentoJWT(APIView):
                     )
 
                 # Create the response object with the JWT payload.
-                response_data = {
-                    'token': jwt_encode_handler(payload),
-                    'email': user.email
-                }
+                response_data = jwt_response_payload_handler(jwt_encode_handler(payload), user, request)
 
                 return Response(response_data)
         else:
@@ -89,8 +88,8 @@ class SocialTokentoJWT(APIView):
 
 class UserView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
-    model = User
-    queryset = User.objects.all()
+    model = get_user_model()
+    queryset = get_user_model().objects.all()
 
     def get_permissions(self):
         # allow non-authenticated user to create via POST

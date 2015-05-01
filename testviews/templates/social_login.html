@@ -32,7 +32,7 @@
                 $.get("/api/v1/accounts/", function(returnedData) {
                     // This callback is executed if the post was successful
                     //self.resolutions.push(resolution);
-                    $('#APIData').val(returnedData[0].username);
+                    $('#APIData').val(returnedData[0].email);
                 }); 
             }); 
 
@@ -50,13 +50,17 @@
 <table>
 <tr>
     <td>Facebook AccessToken</td>
-    <td>Our JWT Access Token</td>
     <td>Your username obtained under Auth</td>
 </tr>
 <tr>
     <td><input id="FBAccessToken" type="text" value="" size="50"/></td>
-    <td><input id="APIAccessToken" type="text" value="" size="50"/></td>
     <td><input id="APIData" type="text" value="" size="50"/></td>
+</tr>
+<tr>
+    <td colspan="2">Our JWT Access Token</td>
+</tr>
+<tr>
+    <td colspan="2"><input id="APIAccessToken" type="text" value="" size="250"/></td>
 </tr>
 </table>
 </form>

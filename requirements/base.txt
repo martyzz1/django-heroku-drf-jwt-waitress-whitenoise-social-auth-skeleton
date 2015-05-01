@@ -3,6 +3,7 @@ celery==3.1.18
 dj-database-url==0.3.0
 django-cache-url==0.8.0
 django-configurations==0.8
+django-custom-user==0.5
 django-model-utils==2.2
 django-secure==1.0.0
 django==1.7.7
