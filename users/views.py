@@ -14,6 +14,8 @@ from rest_framework.permissions import AllowAny
 from .permissions import IsStaffOrTargetUser
 from .serializers import UserSerializer
 
+jwt_response_payload_handler = settings.JWT_RESPONSE_PAYLOAD_HANDLER
+
 
 # When we send a third party access token to that view
 # as a GET request with access_token parameter,
@@ -74,10 +76,7 @@ class SocialTokentoJWT(APIView):
                     )
 
                 # Create the response object with the JWT payload.
-                response_data = {
-                    'token': jwt_encode_handler(payload),
-                    'email': user.email
-                }
+                response_data = jwt_response_payload_handler(jwt_encode_handler(payload), user, request)
 
                 return Response(response_data)
         else:
