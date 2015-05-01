@@ -35,6 +35,7 @@ class Common(Configuration):
     )
     THIRD_PARTY_APPS = (
         'rest_framework',
+        'custom_user',
     )
 
     # Apps specific for this project go here.
@@ -206,6 +207,14 @@ class Common(Configuration):
         "social.backends.facebook.FacebookOAuth2",
     )
 
+    AUTH_USER_MODEL = 'users.User'
+
+    # Some really nice defaults
+    ACCOUNT_AUTHENTICATION_METHOD = "email"
+    ACCOUNT_EMAIL_REQUIRED = True
+    ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+    # END AUTHENTICATION CONFIGURATION
+
     # BEGIN python-social-auth CONFIG
 
     SOCIAL_AUTH_FACEBOOK_KEY = values.SecretValue()
@@ -232,11 +241,6 @@ class Common(Configuration):
 
     # END python-social-auth CONFIG
 
-    # Some really nice defaults
-    ACCOUNT_AUTHENTICATION_METHOD = "email"
-    ACCOUNT_EMAIL_REQUIRED = True
-    ACCOUNT_EMAIL_VERIFICATION = "mandatory"
-    # END AUTHENTICATION CONFIGURATION
 
     # Custom user app defaults
     # Select the correct user model

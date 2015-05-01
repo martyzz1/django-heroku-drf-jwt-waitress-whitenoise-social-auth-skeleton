@@ -1,11 +1,11 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('username', 'password', 'first_name', 'last_name', 'email')
+        model = get_user_model()
+        fields = ('password', 'first_name', 'last_name', 'email')
         write_only_fields = ('password',)
 
     def restore_object(self, attrs, instance=None):
