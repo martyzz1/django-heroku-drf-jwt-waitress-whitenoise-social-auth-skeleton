@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from os.path import join, dirname
-from datetime import timedelta
 from configurations import Configuration, values
+from datetime import timedelta
 
 BASE_DIR = dirname(dirname(__file__))
 
@@ -241,7 +241,6 @@ class Common(Configuration):
 
     # END python-social-auth CONFIG
 
-
     # Custom user app defaults
     # Select the correct user model
     # AUTH_USER_MODEL = "users.User"
@@ -306,7 +305,7 @@ class Common(Configuration):
         'rest_framework_jwt.utils.jwt_decode_handler',
 
         'JWT_PAYLOAD_HANDLER':
-        'rest_framework_jwt.utils.jwt_payload_handler',
+        'users.utils.jwt_payload_handler',
 
         'JWT_PAYLOAD_GET_USER_ID_HANDLER':
         'rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler',
@@ -328,6 +327,9 @@ class Common(Configuration):
 
         'JWT_AUTH_HEADER_PREFIX': 'JWT',
     }
+    # Pawz Settings
+    JWT_CLIENT_REFRESH_EXPIRATION_DELTA = timedelta(days=7)
+    JWT_PROVIDER_REFRESH_EXPIRATION_DELTA = timedelta(hours=12)
     # END django-rest-framework-jwt CONFIGURATION
 
     # BEGIN Celery Configuration

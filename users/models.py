@@ -30,5 +30,8 @@ class User(AbstractEmailUser):
     last_name = models.CharField(_('last name'), max_length=30, blank=False)
     user_type = models.CharField(max_length=1, choices=USER_TYPES, blank=False)
 
+    def is_provider(self):
+        return False if self.user_type == self.CLIENT else True
+
     class Meta(AbstractEmailUser.Meta):
         swappable = 'AUTH_USER_MODEL'

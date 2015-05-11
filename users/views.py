@@ -1,11 +1,11 @@
 # from django.http import HttpResponse
 # from django.contrib.auth import login
 from social.apps.django_app.utils import psa
-from rest_framework_jwt.utils import jwt_payload_handler, jwt_encode_handler
+from rest_framework_jwt.utils import jwt_encode_handler
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import permissions, status
-from rest_framework_jwt.settings import api_settings as settings
+from rest_framework_jwt.settings import api_settings
 from calendar import timegm
 from datetime import datetime
 from django.contrib.auth import get_user_model
@@ -13,8 +13,9 @@ from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from .permissions import IsStaffOrTargetUser
 from .serializers import UserSerializer
+from .utils import jwt_payload_handler
 
-jwt_response_payload_handler = settings.JWT_RESPONSE_PAYLOAD_HANDLER
+jwt_response_payload_handler = api_settings.JWT_RESPONSE_PAYLOAD_HANDLER
 
 
 # When we send a third party access token to that view
@@ -70,7 +71,7 @@ class SocialTokentoJWT(APIView):
 
                 # Include original issued at time for a brand new token,
                 # to allow token refresh
-                if settings.JWT_ALLOW_REFRESH:
+                if api_settings.JWT_ALLOW_REFRESH:
                     payload['orig_iat'] = timegm(
                         datetime.utcnow().utctimetuple()
                     )
