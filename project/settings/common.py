@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from os.path import join, dirname
-from datetime import timedelta
 from configurations import Configuration, values
+from datetime import timedelta
 
 BASE_DIR = dirname(dirname(__file__))
 
@@ -34,14 +34,20 @@ class Common(Configuration):
         'django.contrib.admin',
     )
     THIRD_PARTY_APPS = (
+        'corsheaders',
         'rest_framework',
         'custom_user',
+        'subdomains',
     )
 
     # Apps specific for this project go here.
     LOCAL_APPS = (
         'users',
         'testviews',
+        'client',
+        'provider',
+        'api',
+        'adminserver',
     )
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -54,7 +60,10 @@ class Common(Configuration):
 
     # MIDDLEWARE CONFIGURATION
     MIDDLEWARE_CLASSES = (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
+        'subdomains.middleware.SubdomainURLRoutingMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -63,12 +72,22 @@ class Common(Configuration):
     )
     # END MIDDLEWARE CONFIGURATION
 
+    SUBDOMAIN_URLCONFS = {
+        None: 'project.urls',  # no subdomain, e.g. ``example.com``
+        'client': 'client.urls',
+        'provider': 'provider.urls',
+        'api': 'api.urls',
+        'admin': 'adminserver.urls',
+    }
+
     # DEBUG
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
     DEBUG = values.BooleanValue(False)
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
     TEMPLATE_DEBUG = DEBUG
+    DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
     # END DEBUG
 
     # SECRET CONFIGURATION
@@ -241,13 +260,16 @@ class Common(Configuration):
 
     # END python-social-auth CONFIG
 
-
     # Custom user app defaults
     # Select the correct user model
     # AUTH_USER_MODEL = "users.User"
     LOGIN_REDIRECT_URL = "/"
     LOGIN_URL = "account_login"
     # END Custom user app defaults
+
+    ALLOWED_HOSTS = [
+        "*",
+    ]
 
     # SLUGLIFIER
     AUTOSLUG_SLUGIFY_FUNCTION = "slugify.slugify"
@@ -306,7 +328,7 @@ class Common(Configuration):
         'rest_framework_jwt.utils.jwt_decode_handler',
 
         'JWT_PAYLOAD_HANDLER':
-        'rest_framework_jwt.utils.jwt_payload_handler',
+        'users.utils.jwt_payload_handler',
 
         'JWT_PAYLOAD_GET_USER_ID_HANDLER':
         'rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler',
@@ -328,6 +350,9 @@ class Common(Configuration):
 
         'JWT_AUTH_HEADER_PREFIX': 'JWT',
     }
+    # Pawz Settings
+    JWT_CLIENT_REFRESH_EXPIRATION_DELTA = timedelta(days=7)
+    JWT_PROVIDER_REFRESH_EXPIRATION_DELTA = timedelta(hours=12)
     # END django-rest-framework-jwt CONFIGURATION
 
     # BEGIN Celery Configuration
@@ -335,3 +360,10 @@ class Common(Configuration):
     # END Celery Configuration
 
     # Your common stuff: Below this line define 3rd party libary settings
+
+    # CORS  -  https://github.com/ottoyiu/django-cors-headers/
+    CORS_ORIGIN_ALLOW_ALL = False
+    CORS_ORIGIN_WHITELIST = (
+        'client.pawzdev.co.uk:8000',
+        'provider.pawzdev.co.uk:8000',
+    )

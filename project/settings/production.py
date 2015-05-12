@@ -37,8 +37,21 @@ class Production(Common):
     # SITE CONFIGURATION
     # Hosts/domain names that are valid for this site
     # See https://docs.djangoproject.com/en/1.6/ref/settings/#allowed-hosts
-    ALLOWED_HOSTS = ["*"]
+    ALLOWED_HOSTS = [
+        "client.pawz.co.uk",
+        "provider.pawz.co.uk",
+        "api.pawz.co.uk",
+        "admin.pawz.co.uk",
+    ]
     # END SITE CONFIGURATION
+
+    SUBDOMAIN_URLCONFS = {
+        None: 'project.urls',  # no subdomain, e.g. ``example.com``
+        'client': 'client.urls',
+        'provider': 'provider.urls',
+        'api': 'api.urls',
+        'admin': 'admin.urls',
+    }
 
     # INSTALLED_APPS += ("", )
 
