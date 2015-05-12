@@ -1,10 +1,9 @@
 from django.conf.urls import patterns, include, url
+from django.contrib import admin
 from django.conf import settings
-from subdomains.utils import reverse
-from django.views.generic.base import RedirectView
 
 urlpatterns = patterns('',
-    url(r'^.*$', RedirectView.as_view(url=reverse('home', subdomain='client'), permanent=False))
+    url(r'', include(admin.site.urls)),
 )
 
 if settings.DEBUG:

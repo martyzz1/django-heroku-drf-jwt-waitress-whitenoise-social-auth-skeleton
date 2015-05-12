@@ -1,10 +1,11 @@
 from django.conf.urls import patterns, include, url
+from testviews import urls as testviews_urls
+from .views import HomeView
 from django.conf import settings
-from subdomains.utils import reverse
-from django.views.generic.base import RedirectView
 
 urlpatterns = patterns('',
-    url(r'^.*$', RedirectView.as_view(url=reverse('home', subdomain='client'), permanent=False))
+    url(r'', include(testviews_urls)),
+    url(r'^$', HomeView.as_view(), name='home'),
 )
 
 if settings.DEBUG:

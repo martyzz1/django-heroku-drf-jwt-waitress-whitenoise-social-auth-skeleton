@@ -34,14 +34,20 @@ class Common(Configuration):
         'django.contrib.admin',
     )
     THIRD_PARTY_APPS = (
+        'corsheaders',
         'rest_framework',
         'custom_user',
+        'subdomains',
     )
 
     # Apps specific for this project go here.
     LOCAL_APPS = (
         'users',
         'testviews',
+        'client',
+        'provider',
+        'api',
+        'adminserver',
     )
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -54,7 +60,10 @@ class Common(Configuration):
 
     # MIDDLEWARE CONFIGURATION
     MIDDLEWARE_CLASSES = (
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
+        'subdomains.middleware.SubdomainURLRoutingMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -63,12 +72,22 @@ class Common(Configuration):
     )
     # END MIDDLEWARE CONFIGURATION
 
+    SUBDOMAIN_URLCONFS = {
+        None: 'project.urls',  # no subdomain, e.g. ``example.com``
+        'client': 'client.urls',
+        'provider': 'provider.urls',
+        'api': 'api.urls',
+        'admin': 'adminserver.urls',
+    }
+
     # DEBUG
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
     DEBUG = values.BooleanValue(False)
 
     # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
     TEMPLATE_DEBUG = DEBUG
+    DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
     # END DEBUG
 
     # SECRET CONFIGURATION
@@ -248,6 +267,10 @@ class Common(Configuration):
     LOGIN_URL = "account_login"
     # END Custom user app defaults
 
+    ALLOWED_HOSTS = [
+        "*",
+    ]
+
     # SLUGLIFIER
     AUTOSLUG_SLUGIFY_FUNCTION = "slugify.slugify"
     # END SLUGLIFIER
@@ -337,3 +360,10 @@ class Common(Configuration):
     # END Celery Configuration
 
     # Your common stuff: Below this line define 3rd party libary settings
+
+    # CORS  -  https://github.com/ottoyiu/django-cors-headers/
+    CORS_ORIGIN_ALLOW_ALL = False
+    CORS_ORIGIN_WHITELIST = (
+        'client.pawzdev.co.uk:8000',
+        'provider.pawzdev.co.uk:8000',
+    )
