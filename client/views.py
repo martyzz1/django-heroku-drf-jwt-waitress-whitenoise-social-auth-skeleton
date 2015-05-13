@@ -10,6 +10,6 @@ class HomeView(View):
             "fb_id": settings.SOCIAL_AUTH_FACEBOOK_KEY,
         }
 
-        return TemplateResponse(request, 'home.html', context)
+        return TemplateResponse(request, 'client/home.html', context)
 
 # Create your views here.
