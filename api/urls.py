@@ -3,7 +3,7 @@ from users import urls as users_urls
 from django.conf import settings
 
 urlpatterns = patterns('',
-    url(r'^', include(users_urls)),
+    url(r'^', include(users_urls, namespace='api')),
 )
 
 if settings.DEBUG:
