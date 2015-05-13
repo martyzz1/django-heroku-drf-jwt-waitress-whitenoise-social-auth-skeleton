@@ -3,9 +3,14 @@ from testviews import urls as testviews_urls
 from .views import HomeView
 from django.conf import settings
 
-urlpatterns = patterns('',
-    url(r'', include(testviews_urls)),
+
+client_urls = patterns('',
     url(r'^$', HomeView.as_view(), name='home'),
+    url(r'', include(testviews_urls)),
+)
+
+urlpatterns = patterns('',
+    url(r'', include(client_urls, namespace='client')),
 )
 
 if settings.DEBUG:

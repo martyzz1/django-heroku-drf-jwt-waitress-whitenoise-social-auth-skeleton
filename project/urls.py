@@ -4,7 +4,7 @@ from subdomains.utils import reverse
 from django.views.generic.base import RedirectView
 
 urlpatterns = patterns('',
-    url(r'^.*$', RedirectView.as_view(url=reverse('home', subdomain='client'), permanent=False))
+    url(r'^.*$', RedirectView.as_view(url=reverse('client:home', subdomain='client'), permanent=False))
 )
 
 if settings.DEBUG:

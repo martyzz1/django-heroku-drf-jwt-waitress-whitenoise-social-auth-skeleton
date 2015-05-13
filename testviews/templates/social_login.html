@@ -25,13 +25,12 @@
             if (response.authResponse) {
                 var fb_token = response.authResponse.accessToken;
                 $('#FBAccessToken').val(response.authResponse.accessToken);
-                $.post("{% url 'api-auth-social' backend='facebook' subdomain='api' %}", {access_token: fb_token}, function(returnedData) {
+                $.post("{% url 'api:social-to-auth-token' backend='facebook' subdomain='api' %}", {access_token: fb_token}, function(returnedData) {
                 // This callback is executed if the post was successful
                 //self.resolutions.push(resolution);
                 api_token = returnedData.token
                 $('#APIAccessToken').val(returnedData.token);
-                {#//$.get("{% url '/api/v1/accounts/' subdomain='api' %}", function(returnedData) {#}
-                $.get("{% url 'user-list' subdomain='api' %}", function(returnedData) {
+                $.get("{% url 'api:user-list' subdomain='api' %}", function(returnedData) {
                     // This callback is executed if the post was successful
                     //self.resolutions.push(resolution);
                     $('#APIData').val(returnedData[0].email);
